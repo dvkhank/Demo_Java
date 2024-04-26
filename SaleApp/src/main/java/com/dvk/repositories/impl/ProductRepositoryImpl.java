@@ -90,7 +90,10 @@ public class ProductRepositoryImpl implements ProductRepository {
     @Override
     public void addOrUpdate(Product p) {
         Session s = factoryBean.getObject().getCurrentSession();
-        s.saveOrUpdate(p);
+        if (p.getId() > 0) //Do backing chưa biết là transient hay persisten
+            s.update(p);
+        else
+        s.save(p);
     }
 
     @Override
@@ -98,5 +101,12 @@ public class ProductRepositoryImpl implements ProductRepository {
     Session s = factoryBean.getObject().getCurrentSession();
     return s.get(Product.class, id);
 
+    }
+
+    @Override
+    public void deleteProduct(int id) {
+                Session s = factoryBean.getObject().getCurrentSession();
+        Product p  = this.getProductById(id);
+        s.delete(p);
     }
 }

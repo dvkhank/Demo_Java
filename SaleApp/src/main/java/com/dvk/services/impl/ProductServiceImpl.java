@@ -52,4 +52,9 @@ public class ProductServiceImpl implements ProductService {
         return this.productRepo.getProductById(id);
     }
 
+    @Override
+    public void deleteProduct(int id) {
+        this.productRepo.deleteProduct(id);
+    }
+
 }

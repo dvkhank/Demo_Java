@@ -24,6 +24,9 @@
     <div class="form-floating mb-3 mt-3">
         <form:input type="file" class="form-control" id="image" path="file"/>
         <label for="image">Ảnh sản phẩm</label>
+        <c:if test="${product.id > 0}">
+            <img src="${product.image}" width="200" class="img-fluid">
+        </c:if>
     </div>
     <div class="form-floating">
         <form:select class="form-select" id="categoryId" path="categoryId">
@@ -44,7 +47,16 @@
         <label for="categoryId" class="form-label">Danh mục:</label>
     </div>
     <div class="form-floating">
-        <button type="submit" class="btn btn-info mt-1">Thêm</button>
+        <button type="submit" class="btn btn-info mt-1">
+            <c:choose>
+                <c:when test="${product.id > 0}">
+                    Cập nhật
+                </c:when>
+                <c:otherwise>
+                    Thêm
+                </c:otherwise>
+            </c:choose>
+        </button>
     </div>
     <form:hidden path="id" />
 </form:form>
